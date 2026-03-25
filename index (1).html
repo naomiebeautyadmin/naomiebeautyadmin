@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naomie Beauty Admin</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #0a0a0a; --black2: #111; --white: #f8f6f2;
+  --gold: #c9a96e; --gold2: #e8d5b0; --gray: #777; --light: #1a1a1a;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--black); color: var(--white); font-family: Georgia, serif; overflow-x: hidden; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.4rem 3rem;
+  background: rgba(10,10,10,0.97);
+  border-bottom: 1px solid rgba(201,169,110,0.15);
+}
+.nav-logo { font-size: 0.72rem; letter-spacing: 0.4em; text-transform: uppercase; }
+.nav-logo em { color: var(--gold); font-style: normal; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { color: var(--gray); text-decoration: none; font-family: Arial, sans-serif; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; transition: color .3s; }
+.nav-links a:hover { color: var(--gold); }
+
+/* HERO */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column;
+  justify-content: center; align-items: center; text-align: center;
+  padding: 9rem 2rem 5rem; position: relative;
+}
+.hero::after { content: ''; position: absolute; bottom: 0; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.eyebrow { font-family: Arial, sans-serif; font-size: 0.6rem; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.8rem; }
+.hero-title { font-size: clamp(3rem, 7vw, 6rem); font-weight: normal; line-height: 1.08; margin-bottom: 0.6rem; }
+.hero-title em { font-style: italic; color: var(--gold); }
+.hero-sub { font-size: clamp(1rem, 2vw, 1.35rem); font-style: italic; color: var(--gray); margin-bottom: 2rem; }
+.hero-line { width: 48px; height: 1px; background: var(--gold); margin: 0 auto 2.2rem; }
+.hero-tag { max-width: 480px; font-family: Arial, sans-serif; font-size: 0.83rem; line-height: 2; color: rgba(248,246,242,0.5); margin-bottom: 2.8rem; }
+.cta-row { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-bottom: 4.5rem; }
+.btn { display: inline-block; padding: 0.85rem 2rem; text-decoration: none; font-family: Arial, sans-serif; font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; transition: all .3s; }
+.btn-gold { background: var(--gold); color: var(--black); font-weight: bold; }
+.btn-gold:hover { background: var(--gold2); transform: translateY(-2px); }
+.btn-out { border: 1px solid rgba(248,246,242,0.22); color: var(--white); }
+.btn-out:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+.stats { display: flex; gap: 3rem; flex-wrap: wrap; justify-content: center; padding-top: 3rem; border-top: 1px solid rgba(255,255,255,0.06); }
+.stat-num { display: block; font-size: 1.8rem; font-style: italic; color: var(--gold); margin-bottom: .25rem; }
+.stat-lbl { font-family: Arial, sans-serif; font-size: 0.57rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gray); }
+
+/* SECTIONS */
+.wrap { max-width: 1080px; margin: 0 auto; padding: 6rem 2rem; }
+.sec-h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: normal; line-height: 1.2; margin-bottom: 1.4rem; }
+.sec-h2 em { font-style: italic; color: var(--gold); }
+.sec-p { font-family: Arial, sans-serif; font-size: 0.83rem; line-height: 2; color: rgba(248,246,242,0.5); max-width: 500px; }
+
+/* MISSION */
+.mission-bg { background: var(--black2); border-top: 1px solid rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.04); }
+.mission-grid { display: grid; grid-template-columns: 1fr 1fr; max-width: 1080px; margin: 0 auto; }
+.m-text { padding: 5rem 3.5rem 5rem 2rem; }
+.m-quote { padding: 5rem 2rem 5rem 3.5rem; background: #0d0d0d; border-left: 1px solid rgba(201,169,110,0.15); position: relative; display: flex; flex-direction: column; justify-content: center; }
+.big-q { font-size: 7rem; color: rgba(201,169,110,0.07); position: absolute; top: .5rem; left: 2rem; line-height: 1; }
+.q-text { font-size: 1.3rem; font-style: italic; line-height: 1.7; position: relative; z-index: 1; margin-bottom: 1.4rem; }
+.q-by { font-family: Arial, sans-serif; font-size: 0.6rem; letter-spacing: .3em; text-transform: uppercase; color: var(--gold); }
+
+/* OFFRES */
+.offers { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(255,255,255,0.07); margin-top: 3rem; }
+.card { background: var(--black); padding: 2.5rem 2rem; position: relative; transition: background .4s; }
+.card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform .4s; }
+.card:hover::before { transform: scaleX(1); }
+.card:hover { background: #0f0f0f; }
+.card.feat { background: #0d0d0d; }
+.card.feat::before { transform: scaleX(1); }
+.card-num { font-size: 2.8rem; color: rgba(201,169,110,0.12); line-height: 1; margin-bottom: 1rem; }
+.card-name { font-size: 1.35rem; font-weight: normal; margin-bottom: .3rem; }
+.card-badge { font-family: Arial, sans-serif; font-size: 0.56rem; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 1rem; }
+.card-sep { width: 24px; height: 1px; background: rgba(255,255,255,0.12); margin-bottom: 1rem; }
+.card-desc { font-family: Arial, sans-serif; font-size: 0.75rem; line-height: 1.9; color: rgba(248,246,242,0.42); margin-bottom: 1.4rem; }
+.card-list { list-style: none; margin-bottom: 1.8rem; }
+.card-list li { font-family: Arial, sans-serif; font-size: 0.7rem; color: rgba(248,246,242,0.52); padding: .4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; gap: .6rem; }
+.card-list li::before { content: '✦'; color: var(--gold); font-size: .42rem; margin-top: .18rem; flex-shrink: 0; }
+.card-price { font-size: 1.8rem; font-style: italic; margin-bottom: .2rem; }
+.card-price sup { font-size: .75rem; font-style: normal; font-family: Arial, sans-serif; color: var(--gray); }
+.card-launch { font-family: Arial, sans-serif; font-size: .56rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: .18rem; }
+.card-eng { font-family: Arial, sans-serif; font-size: .58rem; color: var(--gray); }
+
+/* DIFF */
+.diff-bg { background: #080808; border-top: 1px solid rgba(255,255,255,0.04); }
+.diff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.2rem; margin-top: 3rem; }
+.d-card { padding: 2rem; border: 1px solid rgba(255,255,255,0.06); transition: border-color .3s; }
+.d-card:hover { border-color: rgba(201,169,110,0.3); }
+.d-icon { font-size: 1.3rem; margin-bottom: .9rem; display: block; }
+.d-title { font-size: 1.1rem; font-weight: normal; margin-bottom: .6rem; }
+.d-text { font-family: Arial, sans-serif; font-size: .76rem; line-height: 1.9; color: rgba(248,246,242,0.44); }
+
+/* PROCESS */
+.process-bg { background: var(--black2); border-top: 1px solid rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.04); }
+.steps { display: grid; grid-template-columns: repeat(5,1fr); gap: 1rem; margin-top: 3rem; position: relative; }
+.steps::before { content: ''; position: absolute; top: 1.72rem; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg,transparent,rgba(201,169,110,.3),transparent); pointer-events: none; }
+.step { text-align: center; padding: 0 .6rem; position: relative; z-index: 1; }
+.step-circle { width: 3.4rem; height: 3.4rem; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.1rem; font-size: .95rem; font-style: italic; color: var(--gold); background: var(--black2); }
+.step-title { font-size: .88rem; font-weight: normal; margin-bottom: .45rem; }
+.step-desc { font-family: Arial, sans-serif; font-size: .66rem; line-height: 1.7; color: var(--gray); }
+
+/* CONTACT */
+.contact-wrap { text-align: center; padding: 7rem 2rem; position: relative; }
+.contact-wrap::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 100%, rgba(201,169,110,.05) 0%, transparent 65%); pointer-events: none; }
+.contact-wrap .sec-h2 { max-width: 580px; margin: 0 auto 1.4rem; }
+.contact-wrap .sec-p { margin: 0 auto 2.8rem; }
+.channels { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-top: 3rem; }
+.ch { display: flex; flex-direction: column; align-items: center; gap: .4rem; text-decoration: none; color: var(--gray); transition: color .3s; }
+.ch:hover { color: var(--gold); }
+.ch-icon { font-size: 1.3rem; }
+.ch-lbl { font-family: Arial, sans-serif; font-size: .58rem; letter-spacing: .2em; text-transform: uppercase; }
+
+/* FOOTER */
+footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 1.8rem 3rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.f-brand { font-size: .76rem; font-style: italic; color: var(--gray); }
+.f-copy { font-family: Arial, sans-serif; font-size: .56rem; letter-spacing: .1em; color: rgba(255,255,255,.18); }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.on { opacity: 1; transform: none; }
+
+/* RESPONSIVE */
+@media (max-width: 860px) {
+  nav { padding: 1.2rem 1.5rem; }
+  .nav-links { display: none; }
+  .mission-grid { grid-template-columns: 1fr; }
+  .m-text { padding: 3rem 1.5rem; }
+  .m-quote { padding: 3rem 1.5rem; border-left: none; border-top: 1px solid rgba(201,169,110,.15); }
+  .offers { grid-template-columns: 1fr; }
+  .diff-grid { grid-template-columns: 1fr; gap: 1.4rem; }
+  .steps { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .steps::before { display: none; }
+  footer { flex-direction: column; text-align: center; }
+}
+@media (max-width: 480px) {
+  .cta-row { flex-direction: column; align-items: center; }
+  .btn { width: 100%; max-width: 280px; text-align: center; }
+  .steps { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">NAOMIE <em>BEAUTY</em> ADMIN</div>
+  <ul class="nav-links">
+    <li><a href="#offres">Offres</a></li>
+    <li><a href="#mission">Mission</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <p class="eyebrow">Conciergerie Administrative Premium</p>
+  <h1 class="hero-title">Naomie<br><em>Beauty Admin</em></h1>
+  <p class="hero-sub">Ton bras droit. Pas juste une assistante.</p>
+  <div class="hero-line"></div>
+  <p class="hero-tag">Je m'occupe de tout ce qui te prend du temps en coulisse —<br>pour que toi, tu sois à 100&nbsp;% sur ton talent.</p>
+  <div class="cta-row">
+    <a href="#contact" class="btn btn-gold">Prendre contact</a>
+    <a href="#offres" class="btn btn-out">Découvrir les offres</a>
+  </div>
+  <div class="stats">
+    <div class="stat"><span class="stat-num">100%</span><span class="stat-lbl">À distance</span></div>
+    <div class="stat"><span class="stat-num">24h</span><span class="stat-lbl">Délai de réponse</span></div>
+    <div class="stat"><span class="stat-num">3</span><span class="stat-lbl">Formules</span></div>
+    <div class="stat"><span class="stat-num">✦</span><span class="stat-lbl">Premium & humain</span></div>
+  </div>
+</section>
+
+<div class="mission-bg" id="mission">
+  <div class="mission-grid">
+    <div class="m-text reveal">
+      <p class="eyebrow">La mission</p>
+      <h2 class="sec-h2">Pour les femmes qui<br><em>construisent leur empire</em></h2>
+      <p class="sec-p" style="margin-bottom:1.4rem;">Naomie Beauty Admin est une conciergerie administrative premium dédiée aux entrepreneuses beauté. Je soutiens en priorité les femmes de la communauté noire qui méritent les mêmes outils que les grandes maisons.</p>
+      <p class="sec-p">Mon rôle : prendre en charge tout ce qui te prend du temps — DM, emails, planning, SAV, process — pour que ton énergie reste entière là où tu crées de la valeur.</p>
+    </div>
+    <div class="m-quote reveal">
+      <span class="big-q">"</span>
+      <p class="q-text">"Ton talent mérite d'être vu — pas noyé dans les tâches administratives."</p>
+      <span class="q-by">— Naomie Beauty Admin</span>
+    </div>
+  </div>
+</div>
+
+<section id="offres">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">Les formules</p>
+      <h2 class="sec-h2">Choisir l'accompagnement<br><em>qui te correspond</em></h2>
+    </div>
+    <div class="offers">
+      <div class="card reveal">
+        <div class="card-num">01</div>
+        <div class="card-name">Forfait Éclat</div>
+        <span class="card-badge">Gestion opérationnelle</span>
+        <div class="card-sep"></div>
+        <p class="card-desc">Pour les entrepreneuses qui veulent déléguer les tâches du quotidien et retrouver du temps.</p>
+        <ul class="card-list">
+          <li>Gestion des DM Instagram</li>
+          <li>Traitement des emails</li>
+          <li>Mise à jour du planning</li>
+          <li>Suivi SAV & réclamations</li>
+          <li>Bilan hebdomadaire le vendredi</li>
+        </ul>
+        <div class="card-price">150 €<sup> / mois HT</sup></div>
+        <div class="card-launch">★ Tarif de lancement</div>
+        <div class="card-eng">Engagement minimum : 1 mois</div>
+      </div>
+      <div class="card feat reveal">
+        <div class="card-num">02</div>
+        <div class="card-name">Forfait Sérénité</div>
+        <span class="card-badge">★ Formule complète</span>
+        <div class="card-sep" style="background:var(--gold);opacity:.4;"></div>
+        <p class="card-desc">Pour les entrepreneuses qui souhaitent une gestion totale de leur back-office.</p>
+        <ul class="card-list">
+          <li>Tout le Forfait Éclat inclus</li>
+          <li>Gestion administrative complète</li>
+          <li>Optimisation des process internes</li>
+          <li>Création de modèles & templates</li>
+          <li>Point mensuel stratégique</li>
+        </ul>
+        <div class="card-price">300 €<sup> / mois HT</sup></div>
+        <div class="card-launch">★ Tarif de lancement</div>
+        <div class="card-eng">Engagement minimum : 3 mois</div>
+      </div>
+      <div class="card reveal">
+        <div class="card-num">03</div>
+        <div class="card-name">Audit Vision</div>
+        <span class="card-badge">Session stratégique</span>
+        <div class="card-sep"></div>
+        <p class="card-desc">Une session unique de 1h30 pour repartir avec un plan d'action clair.</p>
+        <ul class="card-list">
+          <li>Audit de ton organisation</li>
+          <li>Identification des blocages</li>
+          <li>Plan d'action personnalisé</li>
+          <li>Recommandations d'outils</li>
+          <li>Compte-rendu écrit remis après</li>
+        </ul>
+        <div class="card-price">60 €</div>
+        <div class="card-launch">★ Tarif de lancement</div>
+        <div class="card-eng">Séance unique · Sans abonnement</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="diff-bg">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">Pourquoi Naomie Beauty Admin</p>
+      <h2 class="sec-h2">Ce qui fait<br><em>la différence</em></h2>
+    </div>
+    <div class="diff-grid">
+      <div class="d-card reveal"><span class="d-icon">✦</span><div class="d-title">Bras droit, pas assistante</div><p class="d-text">Je ne me contente pas d'exécuter. J'anticipe, je pense, je propose. Mon rôle est stratégique autant qu'opérationnel.</p></div>
+      <div class="d-card reveal"><span class="d-icon">🖤</span><div class="d-title">Mission communautaire</div><p class="d-text">Je soutiens en priorité les entrepreneuses noires qui construisent leur indépendance financière. C'est au cœur de tout.</p></div>
+      <div class="d-card reveal"><span class="d-icon">◈</span><div class="d-title">Rigueur institutionnelle</div><p class="d-text">J'apporte des standards d'organisation habituellement réservés aux grandes structures : process clairs, outils fiables.</p></div>
+      <div class="d-card reveal"><span class="d-icon">◇</span><div class="d-title">100% à distance, 100% disponible</div><p class="d-text">Instagram, WhatsApp, email, Notion — tout fonctionne sans friction, peu importe où tu te trouves.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="process-bg" id="process">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">Comment ça se passe</p>
+      <h2 class="sec-h2">De la prise de contact<br><em>au lancement de la mission</em></h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="step-circle">1</div><div class="step-title">Premier contact</div><p class="step-desc">Tu m'envoies un DM ou un email. On échange sur ton activité et tes besoins.</p></div>
+      <div class="step reveal"><div class="step-circle">2</div><div class="step-title">Appel découverte</div><p class="step-desc">30 minutes pour comprendre tes priorités et définir la formule adaptée.</p></div>
+      <div class="step reveal"><div class="step-circle">3</div><div class="step-title">Contrat & paiement</div><p class="step-desc">Signature du contrat et règlement du premier mois. Tout est cadré.</p></div>
+      <div class="step reveal"><div class="step-circle">4</div><div class="step-title">Onboarding</div><p class="step-desc">Mise en place des outils et accès. Prêtes en 3 à 5 jours ouvrés.</p></div>
+      <div class="step reveal"><div class="step-circle">5</div><div class="step-title">Mission lancée</div><p class="step-desc">Je prends le relais. Bilan chaque vendredi. Tu reprends du temps.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="contact-wrap" id="contact">
+  <p class="eyebrow reveal">Travaillons ensemble</p>
+  <h2 class="sec-h2 reveal">Prête à reprendre<br><em>ton temps ?</em></h2>
+  <p class="sec-p reveal">Envoie-moi un message — je réponds sous 24h ouvrées.<br>On commence par un échange simple, sans engagement.</p>
+  <a href="/cdn-cgi/l/email-protection#640500094a0a050b090d0106010511101d240b1110080b0b0f4a070b09" class="btn btn-gold reveal" style="margin-top:.5rem;">M'envoyer un message</a>
+  <div class="channels reveal">
+    <a href="https://instagram.com/naomiebeauty_admin" class="ch"><span class="ch-icon">📸</span><span class="ch-lbl">Instagram</span></a>
+    <a href="/cdn-cgi/l/email-protection#e081848dce8e818f8d8985828581959499a08f95948c8f8f8bce838f8d" class="ch"><span class="ch-icon">📧</span><span class="ch-lbl">Email</span></a>
+    <a href="https://wa.me/0766060119" class="ch"><span class="ch-icon">💬</span><span class="ch-lbl">WhatsApp</span></a>
+  </div>
+</div>
+
+<footer>
+  <div class="f-brand">Naomie Beauty Admin — Conciergerie Administrative Premium</div>
+  <div class="f-copy">© 2025 · Tous droits réservés</div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-sta
