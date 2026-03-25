@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naomie Beauty Admin — Conciergerie Administrative Premium</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--black:#0a0a0a;--white:#f8f6f2;--gold:#c9a96e;--gray:#888;--light:#141414}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'Montserrat',sans-serif;font-weight:300;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:22px 48px;background:rgba(10,10,10,0.97);border-bottom:1px solid rgba(201,169,110,0.12)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:15px;letter-spacing:4px;text-transform:uppercase;color:var(--white)}
+.nav-logo span{color:var(--gold)}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gray);text-decoration:none;transition:color .3s}
+.nav-links a:hover{color:var(--gold)}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 48px 80px;background:var(--black);position:relative}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(201,169,110,0.06) 0%,transparent 70%);pointer-events:none}
+.hero-tag{font-size:9px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:28px;display:block}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,8vw,96px);font-weight:300;line-height:1.05;color:var(--white);margin-bottom:12px}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,2.5vw,22px);font-style:italic;color:var(--gray);margin-bottom:48px;line-height:1.6}
+.hero-divider{width:60px;height:1px;background:var(--gold);margin:0 auto 48px}
+.hero-desc{max-width:560px;font-size:13px;line-height:1.9;color:rgba(248,246,242,0.6);margin-bottom:56px}
+.btn{display:inline-block;padding:14px 40px;border:1px solid var(--gold);color:var(--gold);font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;text-decoration:none;transition:all .3s}
+.btn:hover{background:var(--gold);color:var(--black)}
+.btn-outline{border-color:rgba(248,246,242,0.25);color:rgba(248,246,242,0.6);margin-left:16px}
+.btn-outline:hover{background:var(--white);color:var(--black);border-color:var(--white)}
+section{padding:96px 48px}
+.inner{max-width:1100px;margin:0 auto}
+.sec-tag{font-size:9px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:20px}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,56px);font-weight:300;line-height:1.1;color:var(--white);margin-bottom:20px}
+.sec-title em{font-style:italic;color:var(--gold)}
+.sec-line{width:40px;height:1px;background:var(--gold);margin-bottom:48px}
+.mission{background:var(--light)}
+.mission-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.mission-text p{font-size:13px;line-height:1.9;color:rgba(248,246,242,0.65);margin-bottom:20px}
+.mission-text p strong{color:var(--white);font-weight:500}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.stat{background:var(--black);padding:36px 28px;text-align:center}
+.stat-n{font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--gold);display:block;margin-bottom:8px}
+.stat-l{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gray)}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px}
+.svc{background:var(--light);padding:40px 32px;border-top:2px solid transparent;transition:border-color .3s}
+.svc:hover{border-color:var(--gold)}
+.svc-icon{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--gold);display:block;margin-bottom:20px}
+.svc-name{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--white);display:block;margin-bottom:12px}
+.svc-desc{font-size:12px;line-height:1.8;color:rgba(248,246,242,0.45)}
+.offres{background:var(--light)}
+.offres-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.offre{background:var(--black);padding:48px 36px;position:relative;overflow:hidden}
+.offre.star{background:var(--white)}
+.offre.star .offre-name,.offre.star .offre-price{color:var(--black)}
+.offre.star .offre-tag,.offre.star .offre-item::before{color:var(--gold)}
+.offre.star .offre-desc,.offre.star .offre-item,.offre.star .offre-eng{color:rgba(10,10,10,0.55)}
+.offre-bar{position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold)}
+.offre-bg{font-family:'Cormorant Garamond',serif;font-size:72px;color:rgba(201,169,110,0.08);position:absolute;top:16px;right:20px;line-height:1}
+.offre-tag{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:16px}
+.offre-name{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--white);display:block;margin-bottom:16px}
+.offre-desc{font-size:12px;line-height:1.8;color:rgba(248,246,242,0.45);margin-bottom:28px}
+.offre-list{list-style:none;margin-bottom:32px}
+.offre-item{font-size:11px;line-height:1.8;color:rgba(248,246,242,0.45);padding:3px 0}
+.offre-item::before{content:'✦  ';color:var(--gold)}
+.offre-price{font-family:'Cormorant Garamond',serif;font-size:44px;color:var(--white);display:block;margin-bottom:4px}
+.offre-eng{font-size:10px;color:var(--gray)}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:48px}
+.step{background:var(--light);padding:40px 28px;border-top:2px solid transparent;transition:border-color .3s}
+.step:hover{border-color:var(--gold)}
+.step-n{font-family:'Cormorant Garamond',serif;font-size:52px;color:rgba(201,169,110,0.15);display:block;margin-bottom:20px;line-height:1}
+.step-t{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--white);display:block;margin-bottom:12px}
+.step-d{font-size:12px;line-height:1.8;color:rgba(248,246,242,0.45)}
+.contact-section{background:var(--light);text-align:center}
+.contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;max-width:500px;margin:0 auto 56px}
+.ccard{background:var(--black);padding:32px 24px}
+.ccard-icon{font-size:20px;display:block;margin-bottom:12px}
+.ccard-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px}
+.ccard-val{font-size:11px;color:rgba(248,246,242,0.65);text-decoration:none}
+.ccard-val:hover{color:var(--gold)}
+footer{padding:28px 48px;border-top:1px solid rgba(201,169,110,0.1);display:flex;justify-content:space-between;align-items:center}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--gray)}
+.footer-logo span{color:var(--gold)}
+.footer-copy{font-size:10px;color:var(--gray)}
+@media(max-width:900px){
+  nav{padding:18px 20px}
+  .nav-links{display:none}
+  section{padding:64px 20px}
+  .hero{padding:96px 20px 60px}
+  .mission-grid,.services-grid,.offres-grid,.process-grid,.contact-grid{grid-template-columns:1fr}
+  footer{flex-direction:column;gap:12px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Naomie <span>Beauty</span> Admin</div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#offres">Offres</a></li>
+    <li><a href="#mission">Mission</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <span class="hero-tag">Conciergerie Administrative Premium</span>
+  <h1 class="hero-title">Ton talent mérite<br>d'être <em>vu</em></h1>
+  <p class="hero-sub">Pas noyé dans les tâches administratives</p>
+  <div class="hero-divider"></div>
+  <p class="hero-desc">Je suis Adriana, fondatrice de Naomie Beauty Admin. Je prends en charge tout ce qui te prend du temps en coulisse — pour que toi tu sois à 100% sur ton talent.</p>
+  <div>
+    <a href="#contact" class="btn">Prendre contact</a>
+    <a href="#offres" class="btn btn-outline">Voir les offres</a>
+  </div>
+</section>
+
+<section class="mission" id="mission">
+  <div class="inner">
+    <div class="mission-grid">
+      <div class="mission-text">
+        <span class="sec-tag">Qui suis-je ?</span>
+        <h2 class="sec-title">Un bras droit,<br>pas une <em>assistante</em></h2>
+        <div class="sec-line"></div>
+        <p>Après des années au <strong>Ministère de la Culture</strong>, en <strong>cabinet d'avocats parisien</strong> et à la <strong>Société Générale</strong>, j'ai décidé de mettre mon expertise au service des entrepreneuses beauté.</p>
+        <p>Mon rôle est stratégique autant qu'opérationnel. J'anticipe, je propose, je m'adapte. Je représente ta marque avec autant de soin que toi.</p>
+        <p>Je crois que les entrepreneuses beauté méritent les mêmes standards d'organisation que les grandes maisons.</p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat"><span class="stat-n">100%</span><span class="stat-l">À distance</span></div>
+        <div class="stat"><span class="stat-n">24h</span><span class="stat-l">Délai de réponse</span></div>
+        <div class="stat"><span class="stat-n">5j</span><span class="stat-l">Par semaine</span></div>
+        <div class="stat"><span class="stat-n">✦</span><span class="stat-l">Premium & humain</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="inner">
+    <span class="sec-tag">Ce que je gère</span>
+    <h2 class="sec-title">Tout ce qui<br>te prend du <em>temps</em></h2>
+    <div class="sec-line"></div>
+    <div class="services-grid">
+      <div class="svc"><span class="svc-icon">✉</span><span class="svc-name">DM & Emails</span><p class="svc-desc">Lecture, tri, réponse et archivage de tous tes messages. Aucune cliente ne reste sans réponse.</p></div>
+      <div class="svc"><span class="svc-icon">◈</span><span class="svc-name">Planning & RDV</span><p class="svc-desc">Gestion de ton calendrier, confirmations, rappels J-1 et mise à jour en temps réel.</p></div>
+      <div class="svc"><span class="svc-icon">◇</span><span class="svc-name">SAV & Réclamations</span><p class="svc-desc">Traitement des demandes de retouches, réclamations et suivi de la satisfaction cliente.</p></div>
+      <div class="svc"><span class="svc-icon">✦</span><span class="svc-name">Contenu Instagram</span><p class="svc-desc">Rédaction de tes légendes, stories et réponses types DM dans ton ton éditorial.</p></div>
+      <div class="svc"><span class="svc-icon">⊕</span><span class="svc-name">Process & Organisation</span><p class="svc-desc">Création de tes process internes, modèles de réponse et outils de suivi personnalisés.</p></div>
+      <div class="svc"><span class="svc-icon">◉</span><span class="svc-name">Relance Clientes</span><p class="svc-desc">Messages de relance personnalisés pour réactiver tes anciennes clientes et remplir ton planning.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="offres" id="offres">
+  <div class="inner">
+    <span class="sec-tag">Les formules</span>
+    <h2 class="sec-title">Trois façons de<br>travailler <em>ensemble</em></h2>
+    <div class="sec-line"></div>
+    <div class="offres-grid">
+      <div class="offre">
+        <div class="offre-bar"></div>
+        <div class="offre-bg">01</div>
+        <span class="offre-tag">Gestion opérationnelle</span>
+        <span class="offre-name">Forfait Éclat</span>
+        <p class="offre-desc">Pour déléguer les tâches du quotidien et retrouver du temps pour ton activité.</p>
+        <ul class="offre-list">
+          <li class="offre-item">Gestion des DM & emails</li>
+          <li class="offre-item">Mise à jour du planning</li>
+          <li class="offre-item">Suivi SAV & réclamations</li>
+          <li class="offre-item">Bilan hebdomadaire vendredi</li>
+        </ul>
+        <span class="offre-price">150 €<small style="font-size:16px;color:#888"> /mois</small></span>
+        <span class="offre-eng">Engagement min. 1 mois · Tarif de lancement</span>
+      </div>
+      <div class="offre star">
+        <div class="offre-bar"></div>
+        <div class="offre-bg">02</div>
+        <span class="offre-tag">★ Formule complète</span>
+        <span class="offre-name">Forfait Sérénité</span>
+        <p class="offre-desc">Pour une gestion totale de ton back-office et l'optimisation de tes process.</p>
+        <ul class="offre-list">
+          <li class="offre-item">Tout le Forfait Éclat inclus</li>
+          <li class="offre-item">Gestion administrative complète</li>
+          <li class="offre-item">Optimisation des process</li>
+          <li class="offre-item">Point mensuel stratégique</li>
+        </ul>
+        <span class="offre-price">300 €<small style="font-size:16px;color:#888"> /mois</small></span>
+        <span class="offre-eng">Engagement min. 3 mois · Tarif de lancement</span>
+      </div>
+      <div class="offre">
+        <div class="offre-bar"></div>
+        <div class="offre-bg">03</div>
+        <span class="offre-tag">Session unique</span>
+        <span class="offre-name">Audit Vision</span>
+        <p class="offre-desc">Session stratégique 1h30 pour identifier tes blocages et repartir avec un plan d'action.</p>
+        <ul class="offre-list">
+          <li class="offre-item">Audit de ton organisation</li>
+          <li class="offre-item">Identification des blocages</li>
+          <li class="offre-item">Plan d'action personnalisé</li>
+          <li class="offre-item">Compte-rendu écrit remis après</li>
+        </ul>
+        <span class="offre-price">60 €</span>
+        <span class="offre-eng">Séance unique · Sans abonnement · Tarif de lancement</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="inner">
+    <span class="sec-tag">Comment ça se passe ?</span>
+    <h2 class="sec-title">4 étapes vers<br>ta <em>sérénité</em></h2>
+    <div class="sec-line"></div>
+    <div class="process-grid">
+      <div class="step"><span class="step-n">01</span><span class="step-t">Premier contact</span><p class="step-d">Tu m'envoies un DM ou un email. On échange sur ton activité et tes besoins.</p></div>
+      <div class="step"><span class="step-n">02</span><span class="step-t">Appel découverte</span><p class="step-d">30 minutes pour comprendre tes priorités et définir la formule adaptée à ta situation.</p></div>
+      <div class="step"><span class="step-n">03</span><span class="step-t">Contrat & démarrage</span><p class="step-d">Signature du contrat. Mise en place des outils. On est opérationnelles en 3 à 5 jours.</p></div>
+      <div class="step"><span class="step-n">04</span><span class="step-t">Mission lancée</span><p class="step-d">Je prends le relais. Tu reçois ton bilan chaque vendredi. Tu souffles enfin.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <div class="inner">
+    <span class="sec-tag">Me contacter</span>
+    <h2 class="sec-title">Prête à <em>déléguer</em> ?</h2>
+    <div class="sec-line" style="margin:0 auto 48px"></div>
+    <div class="contact-grid">
+      <div class="ccard"><span class="ccard-icon">✉</span><span class="ccard-label">Email</span><a href="mailto:adm.naomiebeauty@outlook.com" class="ccard-val">adm.naomiebeauty@outlook.com</a></div>
+      <div class="ccard"><span class="ccard-icon">◈</span><span class="ccard-label">Instagram</span><a href="https://instagram.com/naomiebeauty_admin" target="_blank" class="ccard-val">@naomiebeauty_admin</a></div>
+    </div>
+    <a href="mailto:adm.naomiebeauty@outlook.com" class="btn">Envoyer un message</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Naomie <span>Beauty</span> Admin</div>
+  <p class="footer-copy">L'excellence administrative au service de la création.</p>
+</footer>
+
+</body>
+</html>
